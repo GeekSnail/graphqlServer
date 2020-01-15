@@ -1,0 +1,165 @@
+# interface UserBase {
+#   _id: ID
+#   email: String!
+#   username: String!
+#   avatar: String
+#   created: String
+# }
+type User {
+  _id: ID
+  email: String!
+  username: String!
+  avatar: String
+  created: String
+  favoritesSize: Int
+  favorites: [Post]
+  collectionsSize: Int
+  collections: [Post]
+  postsSize: Int
+  posts: [Post]
+}
+
+type Post {
+  _id: ID
+  image: Image!
+  tags: [String!]
+  description: String!
+  created: String
+  likes: Int
+  createdBy: String!
+  author: User!
+  commentsSize: Int
+  comments: [Comment]
+}
+
+type Image {
+  url: String!
+  naturalWidth: Int!
+  naturalHeight: Int!
+}
+
+type Comment {
+  _id: ID
+  body: String!
+  created: String
+  user: User!
+}
+
+type Token {
+  token: String!
+}
+
+type File {
+  _id: ID!
+  path: String!
+  filename: String!
+  mimetype: String!
+}
+
+type PostsPage {
+  hasMore: Boolean
+  posts: [Post]
+}
+
+# Likes for Post / Favorites for User
+# return { likes: post.likes, favorites: user.favorites }
+type LikesFaves {
+  likes: Int
+  favorites: [Post]
+}
+
+type Query {
+  getCurrentUser: User
+  batchUsers: [User]
+  getUser(username: String!): User
+  batchPosts: [Post]
+  getPosts: [Post]
+  getUserPosts(username: String!): [Post]
+  postsByIds(ids: [ID]!): [Post]
+  getPost(postId: ID!): Post!
+  searchPosts(searchTerm: String!): [Post]
+  infiniteScrollPosts(pageNum: Int!, pageSize: Int!): PostsPage
+  # uploads: [File]
+  msgs: [Msg!]!
+}
+type Subscription {
+  msgCreated: Msg
+  postCreated: Post
+}
+type Msg {
+  id: String
+  content: String
+}
+
+input PostInput {
+  image: Upload!
+  naturalWidth: Int!
+  naturalHeight: Int!
+  tags: [String]
+  description: String!
+  userId: ID!
+}
+input UpdatePostInput {
+  postId: ID!
+  userId: ID!
+  tags: [String]
+  description: String!
+}
+input DeletePostInput {
+  postId: ID!
+  userId: ID!
+}
+input addCommentInput {
+  postId: ID!
+  userId: ID!
+  body: String!
+}
+input SigninInput {
+  email: String!
+  password: String!
+}
+input SignupInput {
+  username: String!
+  email: String!
+  password: String!
+}
+input LikePost {
+  postId: ID!
+  username: String!
+}
+# do getCurrentUser first related to post
+type Mutation {
+  addMsg(id: Int, content: String): Msg
+  addPost(
+    # title: String!
+    image: Upload!
+    naturalWidth: Int!
+    naturalHeight: Int!
+    tags: [String]
+    description: String!
+    userId: ID!
+  ): Post
+  updateUserPost(
+    postId: ID!
+    userId: ID!
+    tags: [String]
+    description: String!
+  ): Post
+  deleteUserPost(postId: ID!, username: String!): Post
+
+  addPostComment(body: String!, userId: ID!, postId: ID!): Comment
+
+  # current user's (un)like behavior
+  likePost(postId: ID!, username: String!, isLike: Boolean): LikesFaves
+  # unlikePost(postId: ID!, username: String!): LikesFaves
+
+  signinUser(email: String!, password: String!): Token
+  signupUser(username: String!, email: String!, password: String!): Token
+
+  singleUpload(file: Upload!): File!
+  # multipleUpload(files: [Upload!]!): [File!]!
+}
+
+# type Subscription {
+#   commentAdded(repoFullName: String!): Comment
+# }

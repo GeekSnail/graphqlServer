@@ -1,0 +1,41 @@
+{
+  "name": "graphqlServer",
+  "version": "1.0.0",
+  "description": "Full-Stack Vue-GraphQL-Apollo Projects",
+  "author": "Reed Barger",
+  "scripts": {
+    "client": "cd client && npm run serve",
+    "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\"",
+    "server": "nodemon server.js",
+    "start": "sudo pm2-runtime start ecosystem.config.js --env production"
+  },
+  "dependencies": {
+    "apollo-server": "^2.4.8",
+    "apollo-server-express": "^2.4.8",
+    "bcrypt": "^3.0.0",
+    "cors": "^2.8.5",
+    "dataloader": "^1.4.0",
+    "dotenv": "^7.0.0",
+    "graphql": "^14.2.0",
+    "image-size": "^0.7.3",
+    "ioredis": "^4.9.0",
+    "jsonwebtoken": "^8.5.1",
+    "log4js": "^4.1.0",
+    "md5": "^2.2.1",
+    "mongoose": "^5.4.20",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "shortid": "^2.2.14",
+    "stream-to-buffer": "^0.1.0",
+    "bluebird": "^3.5.0",
+    "json-stable-stringify": "^1.0.1",
+    "lodash": "^4.17.2"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.10"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "main": "server.js"
+}
