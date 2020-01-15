@@ -56,7 +56,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-process.env
+# process.env
 
 # next.js build output
 .next
@@ -71,8 +71,3 @@ process.env
 client/
 
 # custom
-test/
-utils/qiniu.*
-utils/mkdirs.js
-uploads/
-data.json
