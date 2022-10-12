@@ -10,7 +10,7 @@
     "start": "sudo pm2-runtime start ecosystem.config.js --env production"
   },
   "dependencies": {
-    "apollo-server": "^2.4.8",
+    "apollo-server": "^2.25.4",
     "apollo-server-express": "^2.4.8",
     "bcrypt": "^3.0.0",
     "cors": "^2.8.5",
